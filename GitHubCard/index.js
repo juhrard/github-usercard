@@ -8,8 +8,8 @@ let cardDiv = document.querySelector('.cards')
 axios.get('https://api.github.com/users/juhrard')
   .then(response => {
     console.log(response);
-      const newCard = cardCreator(response.data);
-      cardDiv.append(newCard);
+    const newCard = cardCreator(response.data);
+    cardDiv.append(newCard);
   })
   .catch(error => {
     console.log(error);
@@ -36,7 +36,31 @@ axios.get('https://api.github.com/users/juhrard')
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['justsml', 'BigKnell', 'tetondan', 'Embiggenerd', 'bremerjp', 'mphelps1978'];
+
+// axios.get('https://api.github.com/users/juhrard/following')
+// .then(response => {
+//   response.data.forEach(element => followersArray.push(element));
+//   followersArray.forEach(user => {
+//     const newCard = cardCreator(user);
+//     cardDiv.append(newCard);
+//   })
+// })
+// .catch(error => {
+//   console.log(error);
+// });
+
+followersArray.forEach(user => {
+  axios.get(`https://api.github.com/users/${user}`)
+  .then(response => {
+    console.log(response);
+    const newCard = cardCreator(response.data);
+    cardDiv.append(newCard);
+  })
+  .catch(error => {
+    console.log(error);
+  });
+})
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
